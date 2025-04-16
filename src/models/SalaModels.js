@@ -1,20 +1,18 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../config/postgres.js";
-import Cliente from "./ClienteModel.js";
+import PadraoLugar from "./PadraoLugarModel.js";
 
-const Emprestimo = sequelize.define(
-    'emprestimos',
+const Sala = sequelize.define(
+    'salas',
     {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
-            autoIncrement: true,
+            autoIncrement: true
         },
-        dataEmprestimo: {
-            field: 'data_emprestimo',
-            type: DataTypes.DATE,
-            allowNull: false,
-            dafaultValue: DataTypes.NOW()
+        observacao: {
+            type: DataTypes.STRING,
+            allowNull: true
         }
     },
     {
@@ -25,15 +23,15 @@ const Emprestimo = sequelize.define(
     }
 );
 
-Emprestimo.belongsTo(Cliente, {
-    as: 'cliente',
+Sala.belongsTo(PadraoLugar, {
+    as: 'padraoLugar',
     onUpdate: 'NO ACTION',
     onDelete: 'NO ACTION',
     foreignKey: {
-        name: 'idCliente',
+        name: 'idPadraoLugares',
         allowNull: false,
-        field: 'id_cliente'
+        field: 'id_padrao_lugares'
     }
 });
 
-export default Emprestimo;
+export default Sala;
